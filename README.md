@@ -105,9 +105,10 @@ python task1/make_figures.py --res results/task1 --out results/task1/figures
 * GSM8K was evaluated twice with identical settings (first evaluation run and the final collection run, because the
   first run's sample files were not accessible as an input); `results/task1` uses the final run. See
   `task1/KAGGLE_RUNS.md` for both runs' scores.
-* The qualitative annotation columns in `annotation_sheet_42.csv` are intentionally empty: they are to be filled by
-  the author. Only automatic checks (JSON parse, template keys, 4-gram repetition, math markers, truncation) are
-  pre-computed.
+* The manual-judgment columns of `annotation_sheet_42.csv` (format compliance, coherence/relevance, repetition,
+  unnecessary mathematical framing, inappropriate content, excerpt, notes) contain an LLM-assisted draft, marked in
+  the `annotation_source` column, which must be verified by the author before use. Automatic checks (JSON parse,
+  template keys, 4-gram repetition, math markers, truncation) are computed by `qual_gen.py`.
 
 ## External code and attribution
 
