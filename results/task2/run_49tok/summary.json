@@ -1,0 +1,86 @@
+{
+ "visual_tokens": 49,
+ "seed": 6304,
+ "model": "Qwen/Qwen3-0.6B",
+ "vision": "google/siglip-base-patch16-224",
+ "micro": 8,
+ "accum": 2,
+ "stages": [
+  {
+   "name": "caption",
+   "updates": 2250,
+   "conn_lr": 0.001,
+   "lora_lr": null
+  },
+  {
+   "name": "visual_instruction",
+   "updates": 1500,
+   "conn_lr": 0.0001,
+   "lora_lr": 2e-05
+  },
+  {
+   "name": "natural_vqa",
+   "updates": 750,
+   "conn_lr": 5e-05,
+   "lora_lr": 1e-05
+  }
+ ],
+ "calibration": {
+  "rule": "scale = mean L2 norm of Qwen input embeddings of training-caption tokens / mean L2 norm of initial connector outputs on the same 512 training images; fixed for all training",
+  "text_embedding_norm": 0.8703774213790894,
+  "initial_visual_norm": 11.445596694946289,
+  "scale": 0.07604473829269409
+ },
+ "split_checks": {
+  "n_dev_images": 208,
+  "n_test_images": 320,
+  "n_train_images": 8733,
+  "dev_test_overlap": 0,
+  "train_eval_overlap": 0
+ },
+ "stage_info": {
+  "caption": {
+   "time_s": 1447.194179058075,
+   "updates": 2250,
+   "peak_gpu_mem_bytes": 3517872640,
+   "trainable_params": 1837056,
+   "mixture_counts": {
+    "caption": 36000
+   }
+  },
+  "visual_instruction": {
+   "time_s": 1193.2734818458557,
+   "updates": 1500,
+   "peak_gpu_mem_bytes": 3580820992,
+   "trainable_params": 6424576,
+   "mixture_counts": {
+    "presence": 12204,
+    "counting": 5814,
+    "caption": 5982
+   }
+  },
+  "natural_vqa": {
+   "time_s": 591.8564016819,
+   "updates": 750,
+   "peak_gpu_mem_bytes": 3580591616,
+   "trainable_params": 6424576,
+   "mixture_counts": {
+    "counting": 1280,
+    "vqa": 8334,
+    "presence": 1158,
+    "caption": 1228
+   }
+  }
+ },
+ "frozen_backbone_params": 596049920,
+ "template": {
+  "pre": "<|im_start|>user\n",
+  "mid": "\n",
+  "post": "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+ },
+ "connector_grad_check": {
+  "grad_present": true,
+  "finite": false
+ },
+ "final_eval_peak_gpu_mem_bytes": 3580591616
+}

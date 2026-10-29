@@ -1,0 +1,101 @@
+math loaded 1000 questions; alignment mismatches 0
+math labelling 0 0.0 s
+math labelling 100 1.6 s
+math labelling 200 10.6 s
+math labelling 300 27.2 s
+math labelling 400 96.6 s
+math labelling 500 118.1 s
+math labelling 600 119.5 s
+math labelling 700 122.8 s
+math labelling 800 135.1 s
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+Timeout during comparison
+math labelling 900 233.9 s
+math labelled in 247.9 s
+math 0 0.0
+math 200 4.2
+math 400 8.3
+math 600 12.5
+math 800 16.6
+math EVAL oracle [0.644, 0.725, 0.791, 0.843, 0.884, 0.914]
+math first [0.644, 0.644, 0.644, 0.644, 0.644, 0.644] cost [670, 670, 670, 670, 670, 670]
+math sc [0.644, 0.644, 0.692, 0.718, 0.731, 0.738] cost [670, 1340, 2680, 5344, 10678, 21347]
+math logp_highest [0.644, 0.658, 0.672, 0.675, 0.664, 0.64] cost [670, 1340, 2680, 5344, 10678, 21347]
+math logp_rwc [0.644, 0.658, 0.685, 0.722, 0.739, 0.749] cost [670, 1340, 2680, 5344, 10678, 21347]
+math selfcert_highest [0.644, 0.668, 0.688, 0.701, 0.707, 0.706] cost [670, 1340, 2680, 5344, 10678, 21347]
+math selfcert_rwc [0.644, 0.668, 0.697, 0.729, 0.746, 0.756] cost [670, 1340, 2680, 5344, 10678, 21347]
+math shortest [0.644, 0.653, 0.652, 0.646, 0.632, 0.624] cost [670, 1340, 2680, 5344, 10678, 21347]
+math adaptive {"agreement": {"acc": 0.736375, "token_cost": 10139.981, "mean_rollouts": 11.824, "incorrect_early_stops_where_fixed32_correct": 0.006375}, "quality_aware": {"acc": 0.73175, "token_cost": 7663.055375, "mean_rollouts": 9.0075, "incorrect_early_stops_where_fixed32_correct": 0.016375}, "fixed32_sc": {"acc": 0.737875, "token_cost": 21347.0175, "mean_rollouts": 32.0, "incorrect_early_stops_where_fixed32_correct": 0.0}}
+math selected {"agreement": [0.625, null], "quality_aware": [0.5, 0.0]}
+mathvista loaded 1000 questions; alignment mismatches 0
+mathvista labelling 0 0.0 s
+mathvista labelling 100 0.1 s
+mathvista labelling 200 0.1 s
+mathvista labelling 300 0.2 s
+mathvista labelling 400 0.3 s
+mathvista labelling 500 0.3 s
+mathvista labelling 600 0.4 s
+mathvista labelling 700 0.5 s
+mathvista labelling 800 0.5 s
+mathvista labelling 900 0.6 s
+mathvista labelled in 0.7 s
+mathvista 0 0.1
+mathvista 200 15.7
+mathvista 400 31.3
+mathvista 600 47.0
+mathvista 800 62.7
+mathvista EVAL oracle [0.548, 0.674, 0.773, 0.841, 0.884, 0.909]
+mathvista first [0.548, 0.548, 0.548, 0.548, 0.548, 0.548] cost [278, 278, 278, 278, 278, 278]
+mathvista sc [0.548, 0.548, 0.593, 0.616, 0.629, 0.639] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista logp_highest [0.548, 0.557, 0.548, 0.533, 0.52, 0.494] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista logp_rwc [0.548, 0.557, 0.572, 0.602, 0.621, 0.629] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista selfcert_highest [0.548, 0.56, 0.563, 0.561, 0.564, 0.56] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista selfcert_rwc [0.548, 0.56, 0.581, 0.617, 0.633, 0.651] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista shortest [0.548, 0.56, 0.56, 0.554, 0.548, 0.543] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista vision_highest [0.548, 0.555, 0.555, 0.553, 0.548, 0.545] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista vision_rwc [0.548, 0.555, 0.577, 0.614, 0.629, 0.644] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista visconf_highest [0.548, 0.566, 0.575, 0.575, 0.579, 0.586] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista visconf_rwc [0.548, 0.566, 0.591, 0.623, 0.636, 0.652] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista visconf_tok_highest [0.548, 0.566, 0.571, 0.568, 0.568, 0.571] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista visconf_tok_rwc [0.548, 0.566, 0.589, 0.625, 0.638, 0.649] cost [278, 551, 1112, 2230, 4462, 8898]
+mathvista adaptive {"agreement": {"acc": 0.632, "token_cost": 2907.49225, "mean_rollouts": 8.415, "incorrect_early_stops_where_fixed32_correct": 0.0405}, "quality_aware": {"acc": 0.635625, "token_cost": 3286.981125, "mean_rollouts": 9.628, "incorrect_early_stops_where_fixed32_correct": 0.032125}, "fixed32_sc": {"acc": 0.639375, "token_cost": 8897.7575, "mean_rollouts": 32.0, "incorrect_early_stops_where_fixed32_correct": 0.0}}
+mathvista selected {"agreement": [0.5, null], "quality_aware": [0.5, 0.0]}
+DONE

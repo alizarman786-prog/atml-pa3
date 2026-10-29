@@ -1,4 +1,4 @@
-# Environment used for Task 1 (Kaggle GPU image, Python 3.13, 2x Tesla T4)
+# Environment used for all tasks (Kaggle GPU image, Python 3.13, 2x Tesla T4)
 torch==2.11.0
 transformers==5.16.1
 datasets==4.8.5
@@ -8,3 +8,8 @@ lm_eval[hf]==0.4.13
 numpy
 pyyaml
 matplotlib
+pandas
+pyarrow
+scipy
+pillow
+math-verify[antlr4_13_2]

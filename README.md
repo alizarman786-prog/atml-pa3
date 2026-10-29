@@ -1,7 +1,7 @@
 # EE-5102/CS-6304 PA3 — Fine-Tuning, VLM Grounding and Test-Time Compute
 
 This repository holds the code, configurations, split/example IDs and machine-readable results for Programming
-Assignment 3. **Status: Task 1 (LLM fine-tuning) is complete. Tasks 2 and 3 are not yet included.**
+Assignment 3. Task 1 (LLM fine-tuning), Task 2 (SigLIP–Qwen3 VLM grounding) and Task 3 (test-time compute) are included.
 
 All Task 1 experiments ran on Kaggle (2× NVIDIA Tesla T4, 16 GB each) with `torch 2.11.0+cu128`,
 `transformers 5.16.1`, `datasets 4.8.5`, `accelerate 1.14.0`, `lm_eval 0.4.13` (Python 3.13). Base model:
@@ -25,6 +25,18 @@ task1/
   make_figures.py           # figures + markdown tables from results/task1
   first_plot_questions.yaml # qualitative prompts (supplied with the assignment)
   KAGGLE_RUNS.md            # exact notebook commands and run log (versions, runtimes, issues)
+task2/
+  vqa_norm.py               # official VQAv2 answer normalization + soft accuracy (leave-one-annotator-out)
+  prep_vlm.py               # COCO captions / grounding (presence, counting) / VQAv2 complementary pairs + image download
+  cache_feats.py            # frozen SigLIP-base last_hidden_state cache (196 x 768, FP16)
+  train_vlm.py              # connector + LoRA, 3-stage curriculum, dev diagnostics, final 4-condition evaluation
+  make_report.py            # figures + markdown tables from the run outputs
+task3/
+  t3_splits.py              # seeded dev/eval split (200/800 per dataset) + 50-question live subset
+  t3_offline.py             # labelling, selection rules x budgets x 10 orders, signal analysis, adaptive stopping
+  t3_live.py                # live single / parallel / refinement generation with Qwen2.5-3B-Instruct
+  t3_live_eval.py           # grading of the live comparison
+  make_report.py            # figures + markdown tables
 results/task1/
   data/                     # train_info.json, train_selection.json (example IDs), probe_ids.json
   training/                 # <method>_summary.json, <method>_train_log.csv (per-update loss, lr, grad-norm, Omega, ...)
@@ -33,6 +45,14 @@ results/task1/
   qualitative/              # qualitative_responses.jsonl (168), annotation_sheet_42.csv (manual columns to fill)
   tables/                   # benchmarks.md/csv, resources.md, diagnostics.md, qualitative_auto_checks.md
   figures/                  # fig1_training_loss, fig2_benchmark_deltas, fig3_diagnostics (.png/.pdf)
+results/task2/
+  data/                     # split files (image/question IDs, answers), data_stats.json, cache_info.json
+  run_196tok/, run_49tok/   # train_log.jsonl, dev_eval.jsonl, summary.json, final_eval.json, final_per_example.jsonl
+  report/                   # tables.md, qualitative.md, fig_train_loss.png, fig_dev_curves.png
+results/task3/
+  offline/                  # splits.json, live50.json, <ds>_results.json, <ds>_per_question.csv.gz, <ds>_labels.json
+  live/                     # live_shard*.jsonl (full prompts/responses), live_results.json
+  report/                   # tables.md, scaling / cost / adaptive / trajectory figures
 ```
 
 Model weights, recovery checkpoints, raw datasets and full lm-eval sample dumps are **not** committed (size); they
@@ -110,12 +130,91 @@ python task1/make_figures.py --res results/task1 --out results/task1/figures
   the `annotation_source` column, which must be verified by the author before use. Automatic checks (JSON parse,
   template keys, 4-gram repetition, math markers, truncation) are computed by `qual_gen.py`.
 
+## Task 2 — SigLIP–Qwen3 VLM grounding
+
+Frozen `google/siglip-base-patch16-224` vision encoder (features cached once, post-LN `last_hidden_state`,
+196 × 768) → trainable 2-layer MLP connector (768 → 1024 → 1024, GELU) → frozen `Qwen/Qwen3-0.6B` (FP16,
+`enable_thinking=False`). The connector output is multiplied by a fixed scale computed before training from training
+data only (mean token-embedding norm / mean initial connector-output norm on 512 training captions). Visual tokens are
+inserted at the start of the user message (chat template split at an `<IMG>` placeholder), before the question.
+Loss: mean token NLL per example over the target tokens + `<|im_end|>`, averaged over examples.
+
+```bash
+python task2/prep_vlm.py --out /kaggle/working/vlm_data            # COCO 2014 + VQAv2 annotations, images
+python task2/cache_feats.py --data /kaggle/working/vlm_data --out /kaggle/working/feats
+CUDA_VISIBLE_DEVICES=0 python task2/train_vlm.py --data /kaggle/working/vlm_data --feats /kaggle/working/feats --out run196
+CUDA_VISIBLE_DEVICES=1 python task2/train_vlm.py --data /kaggle/working/vlm_data --feats /kaggle/working/feats --out run49 --pool
+python task2/make_report.py --run 196=run196 --run 49=run49 --out results/task2/report
+```
+
+* **Data.** Training images come from COCO train2014 only; development and test images from val2014 only, each val
+  image used at most once (no train/dev/test overlap; asserted in `train_vlm.py`). Captions: 6,000 images × 3
+  captions (train), 96 (dev). Grounding pairs built from COCO instances: presence (positive instance ≥ 1% of the image)
+  and counting (1–4 instances, no crowd / tiny instances); dev 12 + 12, test 32 + 32 pairs. VQAv2 complementary pairs
+  with ≥ 8/10 annotator agreement, different consensus answers and the same answer type; train 640/256/640,
+  dev 12/8/12, test 36/24/36 (yes/no / number / other). All selections are seeded (6304).
+* **Curriculum.** Stage 1 caption alignment, connector only, 2,250 updates (lr 1e-3). Stage 2 visual instruction
+  (presence 50% / counting 25% / caption replay 25%, drawn as complete pairs), connector 1e-4 + LoRA r=16 α=32
+  dropout 0.05 on q/k/v/o (2e-5), 1,500 updates. Stage 3 natural VQA (VQA 70% / presence 10% / counting 10% /
+  caption 10%), 5e-5 / 1e-5, 750 updates. Effective batch 16 (8 × 2), AdamW, 5% warm-up + cosine to 10%,
+  clip 1.0, FP16 autocast with loss scaling, gradient checkpointing; dev evaluation every 500 updates and at stage
+  ends; recovery checkpoints every 250 updates.
+* **Development diagnostics.** Caption reference loss; answer NLL with the correct image, the pair partner's image and
+  no image; swap penalty = NLL(partner image) − NLL(correct image).
+* **Final evaluation.** Greedy decoding (≤ 16 tokens, manual KV cache) on the test pairs under four image conditions
+  (correct / complementary partner / mismatched image from another pair, fixed seeded mapping / no image). VQA uses
+  VQAv2 soft accuracy with official normalization; grounding uses normalized exact match. Reported: accuracy, pair
+  accuracy, identical-answer rate, follows-partner rate, answer NLL, empty / truncated rates, generation time; 95% CIs
+  from 4,000 pair-level bootstrap resamples (both members of a pair resampled together).
+* **Optional run.** `--pool` averages each 2 × 2 block of the 14 × 14 patch grid (49 visual tokens); everything else
+  identical.
+
+## Task 3 — test-time compute
+
+Offline analysis of the supplied rollouts (32 per question; Qwen2.5-Math on MATH, Qwen2.5-VL on MathVista) and a
+live comparison with `Qwen/Qwen2.5-3B-Instruct` (revision `aa8e72537993ba99e69dfaafa59ed015b17504d1`).
+
+```bash
+python task3/t3_splits.py --data pa3data --out t3
+wget https://raw.githubusercontent.com/lupantech/MathVista/main/data/testmini.json -O t3/testmini.json
+python task3/t3_offline.py --data pa3data --splits t3/splits.json --meta t3/testmini.json --out t3
+CUDA_VISIBLE_DEVICES=0 python task3/t3_live.py --questions t3/live50.json --out live --shard 0 --nshards 2
+CUDA_VISIBLE_DEVICES=1 python task3/t3_live.py --questions t3/live50.json --out live --shard 1 --nshards 2
+python task3/t3_live_eval.py --live live --out live
+python task3/make_report.py --offline t3 --live live --out results/task3/report
+```
+
+* **Splits.** Per dataset, sorted question IDs are permuted with `numpy.random.default_rng(6304)`: first 200 =
+  development (threshold selection only), remaining 800 = held-out evaluation. The live subset is the first 50 MATH
+  evaluation questions of that permutation.
+* **Answer equivalence.** MATH: `math-verify` (gold first), with cheap canonical string equality first; answers are
+  grouped without the gold answer. Comparisons that hit the 2 s math-verify timeout are treated as not equivalent.
+  MathVista: normalization from the released `testmini.json` metadata (choice letters / choice text / numeric
+  matching for multiple choice; integer rounding; float precision). Missing answers form one `NO_ANSWER` group that
+  is never correct.
+* **Selection rules.** Single rollout, self-consistency (ties → earliest rollout), highest score and rank-weighted
+  consistency (average ranks, weight (N − r)/(N − 1)) for mean log-probability, self-certainty (mean KL(U‖p)),
+  shortest response, and on MathVista the vision-dependence score, VisConf (per-candidate-set 5th/95th percentile
+  calibration of token confidence × mean vision dependence) and token-level fusion. Budgets N ∈ {1, 2, 4, 8, 16, 32},
+  10 seeded rollout orders per question (accuracy averaged over orders), 95% CIs from 1,000 question-level bootstrap
+  resamples (paired for differences).
+* **Adaptive sampling.** Check points after 4 / 8 / 16 rollouts; agreement rule (unique leading answer with share ≥ τ)
+  and quality-aware rule (additionally SC and score-RWC agree and the RWC margin ≥ γ). τ and γ are selected on the
+  development split (lowest cost within 1 point of fixed N = 32 SC) and applied unchanged to the evaluation split.
+* **Live comparison.** Same 3,072-token output allowance per question: one 3,072-token response; three 1,024-token
+  samples with self-consistency; one shared 1,024-token response plus one 2,048-token critique-and-revision turn.
+  FP16, batch size 1, temperature 0.7, top-p 0.8, top-k 20; seeds `6304·1000 + 10·index + k`. Last `\boxed{}` with
+  balanced braces is extracted; full prompts and responses are saved.
+
 ## External code and attribution
 
 * [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) (MIT) — benchmark tasks, prompts and
   scoring; used unmodified as a library/CLI.
 * Hugging Face `transformers` / `datasets` — model, tokenizer, schedule (`get_cosine_schedule_with_warmup`) and data
   loading. The HellaSwag preprocessing in `diag.py` mirrors lm-eval's `hellaswag/utils.py`.
+* Hugging Face `transformers` SigLIP / Qwen3 / Qwen2.5 models; COCO 2014 annotations and images; VQAv2 questions,
+  answers and complementary pairs; VQAv2 answer normalization follows the official evaluation script.
+* `math-verify` (Hugging Face) for MATH answer equivalence; MathVista `testmini.json` metadata for normalization.
 * LoRA initialization follows Hu et al. (2021) / PEFT defaults; OPLoRA projections follow Xiong & Xie (Sec. 3.2–3.3).
 * Code was written with assistance from an LLM coding assistant; all code was reviewed and is the author's
   responsibility, as permitted by the assignment policy.
