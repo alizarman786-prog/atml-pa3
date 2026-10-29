@@ -1,0 +1,25 @@
+{
+ "model": "Qwen/Qwen3-0.6B",
+ "n": 40000,
+ "last_source_index": 40001,
+ "excluded": {
+  "empty": 0,
+  "gsm8k_test_match": 0,
+  "too_long": 2
+ },
+ "len_mean": 247.7105712890625,
+ "len_max": 1941,
+ "len_p50": 219,
+ "resp_tokens_total": 7100056,
+ "tokens_total": 9908423,
+ "types": {
+  "MATH_AnsAug": 7580,
+  "GSM_Rephrased": 8044,
+  "GSM_SV": 4100,
+  "GSM_FOBAR": 4043,
+  "GSM_AnsAug": 8140,
+  "MATH_FOBAR": 1574,
+  "MATH_Rephrased": 5015,
+  "MATH_SV": 1504
+ }
+}

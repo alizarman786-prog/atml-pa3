@@ -1,0 +1,50 @@
+{
+ "method": "lora4",
+ "model": "Qwen/Qwen3-0.6B",
+ "commit": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "seed": 6304,
+ "cfg": {
+  "lr": 0.0002,
+  "lam": 0.0,
+  "r": 4,
+  "alpha": 8
+ },
+ "micro": 2,
+ "accum": 16,
+ "total_updates": 1250,
+ "warmup": 38,
+ "trainable_params": 2523136,
+ "method_overhead": {},
+ "checkpoints": {
+  "312": {
+   "recovery_bytes": 30746469,
+   "save_time_s": 0.139237642288208
+  },
+  "625": {
+   "recovery_bytes": 30746469,
+   "save_time_s": 0.1380782127380371
+  },
+  "937": {
+   "recovery_bytes": 30746469,
+   "save_time_s": 0.13359546661376953
+  },
+  "1250": {
+   "recovery_bytes": 30748045,
+   "adapter_bytes": 10209283,
+   "merge_check_max_abs_logit_diff": 0.2734375,
+   "merge_check_mean_abs_logit_diff": 0.0063464525155723095,
+   "merge_check_argmax_agree": 1.0,
+   "eval_model_dir": "/kaggle/working/runs/lora4/model_final",
+   "eval_model_bytes": 1203563926,
+   "save_time_s": 4.004405975341797
+  }
+ },
+ "gpu": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "train_time_s": 9885.194385528564,
+ "ckpt_time_s_this_session": 4.4153172969818115,
+ "peak_gpu_mem_bytes_this_session": 3441686528,
+ "peak_gpu_reserved_bytes_this_session": 6360662016,
+ "skipped_updates_this_session": 0,
+ "finished_update": 1250
+}

@@ -1,0 +1,10 @@
+# Environment used for Task 1 (Kaggle GPU image, Python 3.13, 2x Tesla T4)
+torch==2.11.0
+transformers==5.16.1
+datasets==4.8.5
+accelerate==1.14.0
+safetensors==0.8.0
+lm_eval[hf]==0.4.13
+numpy
+pyyaml
+matplotlib

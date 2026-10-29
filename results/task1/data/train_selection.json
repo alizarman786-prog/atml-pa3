@@ -1,0 +1,17 @@
+{
+ "rule": "first 40,000 eligible MetaMathQA rows in source order (meta-math/MetaMathQA train split)",
+ "n": 40000,
+ "first_source_index": 0,
+ "last_source_index": 40001,
+ "excluded_before_last": [
+  [
+   26704,
+   "too_long"
+  ],
+  [
+   30481,
+   "too_long"
+  ]
+ ],
+ "reconstruct": "[i for i in range(last_source_index+1) if i not in excluded indices]"
+}

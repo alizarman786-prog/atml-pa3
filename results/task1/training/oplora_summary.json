@@ -1,0 +1,56 @@
+{
+ "method": "oplora",
+ "model": "Qwen/Qwen3-0.6B",
+ "commit": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "seed": 6304,
+ "cfg": {
+  "lr": 0.0002,
+  "lam": 0.0,
+  "r": 16,
+  "alpha": 32,
+  "k": 128
+ },
+ "micro": 2,
+ "accum": 16,
+ "total_updates": 1250,
+ "warmup": 38,
+ "trainable_params": 10092544,
+ "method_overhead": {
+  "svd_preprocess_s": 37.11235761642456,
+  "basis_bytes": 322961408,
+  "k": 128
+ },
+ "checkpoints": {
+  "312": {
+   "recovery_bytes": 121579365,
+   "save_time_s": 0.2603127956390381
+  },
+  "625": {
+   "recovery_bytes": 121579365,
+   "save_time_s": 0.23578453063964844
+  },
+  "937": {
+   "recovery_bytes": 121579365,
+   "save_time_s": 0.23385977745056152
+  },
+  "1250": {
+   "recovery_bytes": 121580941,
+   "adapter_bytes": 40486915,
+   "merge_check_max_abs_logit_diff": 0.125,
+   "merge_check_mean_abs_logit_diff": 0.006183847784996033,
+   "merge_check_argmax_agree": 0.9973958730697632,
+   "eval_model_dir": "/kaggle/working/runs/oplora/model_final",
+   "eval_model_bytes": 1203563926,
+   "save_time_s": 4.637552261352539
+  }
+ },
+ "gpu": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "train_time_s": 13164.860945940018,
+ "ckpt_time_s_this_session": 5.367509365081787,
+ "peak_gpu_mem_bytes_this_session": 3910273024,
+ "peak_gpu_reserved_bytes_this_session": 6853492736,
+ "skipped_updates_this_session": 0,
+ "finished_update": 1250,
+ "oplora_max_constraint_violation": 4.253885708749294e-05
+}

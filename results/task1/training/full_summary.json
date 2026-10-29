@@ -1,0 +1,49 @@
+{
+ "method": "full",
+ "model": "Qwen/Qwen3-0.6B",
+ "commit": "c1899de289a04d12100db370d81485cdf75e47ca",
+ "seed": 6304,
+ "cfg": {
+  "lr": 2e-05,
+  "lam": 0.0,
+  "r": null
+ },
+ "micro": 2,
+ "accum": 16,
+ "total_updates": 1250,
+ "warmup": 38,
+ "trainable_params": 596049920,
+ "method_overhead": {},
+ "checkpoints": {
+  "312": {
+   "recovery_bytes": 7152990585,
+   "save_time_s": 28.445833921432495
+  },
+  "625": {
+   "recovery_bytes": 7152990585,
+   "displacement_l2": 10.029395869208956,
+   "eval_model_dir": "/kaggle/working/runs/full/model_mid",
+   "eval_model_bytes": 1203563926,
+   "save_time_s": 36.95889472961426
+  },
+  "937": {
+   "recovery_bytes": 7152990585,
+   "save_time_s": 23.88362193107605
+  },
+  "1250": {
+   "recovery_bytes": 7152991897,
+   "displacement_l2": 10.667951722923378,
+   "eval_model_dir": "/kaggle/working/runs/full/model_final",
+   "eval_model_bytes": 1203563926,
+   "save_time_s": 26.33785390853882
+  }
+ },
+ "gpu": "Tesla T4",
+ "torch": "2.11.0+cu128",
+ "train_time_s": 9093.909052610397,
+ "ckpt_time_s_this_session": 115.62620449066162,
+ "peak_gpu_mem_bytes_this_session": 12555618816,
+ "peak_gpu_reserved_bytes_this_session": 15313403904,
+ "skipped_updates_this_session": 0,
+ "finished_update": 1250
+}
