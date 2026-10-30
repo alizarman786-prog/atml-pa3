@@ -114,3 +114,14 @@ Within-rollout correlation between calibrated confidence and vision dependence (
 | agreement | 0.5 | None | 63.2 | 8.4 | 2907 | {'4': 0.76225, '8': 0.07925, '16': 0.02125, '32': 0.13725} | 4.0 |
 | quality_aware | 0.5 | 0.0 | 63.6 | 9.6 | 3287 | {'4': 0.69175, '8': 0.104625, '16': 0.03075, '32': 0.172875} | 3.2 |
 | fixed32_sc | - | - | 63.9 | 32.0 | 8898 | {'32': 1.0} | 0.0 |
+
+## Live comparison (50 MATH eval questions, Qwen2.5-3B-Instruct, 3,072-token allowance)
+
+| strategy | accuracy (%) | mean output tokens | mean input tokens | mean seconds | truncation (%) | extraction (%) |
+|---|---|---|---|---|---|---|
+| single | 62.0 | 760 | 108 | 40.5 | 4.0 | 96.0 |
+| parallel | 54.0 | 1857 | 325 | 98.1 | 16.7 | 83.3 |
+| refinement | 62.0 | 1217 | 890 | 64.8 | 0.0 | 100.0 |
+
+Refinement: initial accuracy 56.0%; wrong->correct 3, correct->wrong 0, unchanged correct 28, unchanged wrong 19; initial truncation 20.0%, mean critique tokens 582. Parallel oracle (any of 3 correct): 70.0%. GPU Tesla T4, peak memory 6.17 GiB.
+

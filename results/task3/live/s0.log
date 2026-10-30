@@ -1,0 +1,54 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:32<00:32, 32.61s/it]Fetching 2 files: 100%|██████████| 2/2 [00:45<00:00, 21.11s/it]Fetching 2 files: 100%|██████████| 2/2 [00:45<00:00, 22.83s/it]
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:   0%|          | 1/434 [00:04<30:54,  4.28s/it]Loading weights:  28%|██▊       | 123/434 [00:04<00:08, 36.61it/s]Loading weights:  33%|███▎      | 144/434 [00:05<00:08, 33.18it/s]Loading weights:  36%|███▌      | 157/434 [00:06<00:09, 29.67it/s]Loading weights:  38%|███▊      | 166/434 [00:06<00:09, 26.92it/s]Loading weights:  40%|███▉      | 172/434 [00:07<00:10, 25.18it/s]Loading weights:  41%|████      | 177/434 [00:07<00:11, 23.33it/s]Loading weights:  42%|████▏     | 183/434 [00:07<00:10, 24.53it/s]Loading weights:  43%|████▎     | 187/434 [00:08<00:11, 21.05it/s]Loading weights:  45%|████▍     | 195/434 [00:08<00:10, 21.84it/s]Loading weights:  46%|████▌     | 198/434 [00:08<00:13, 18.04it/s]Loading weights:  48%|████▊     | 207/434 [00:08<00:09, 23.75it/s]Loading weights:  49%|████▊     | 211/434 [00:09<00:11, 19.76it/s]Loading weights:  50%|█████     | 219/434 [00:09<00:10, 20.63it/s]Loading weights:  51%|█████     | 222/434 [00:09<00:12, 16.79it/s]Loading weights:  53%|█████▎    | 231/434 [00:10<00:08, 23.66it/s]Loading weights:  54%|█████▍    | 235/434 [00:10<00:10, 19.32it/s]Loading weights:  56%|█████▌    | 243/434 [00:10<00:09, 20.42it/s]Loading weights:  57%|█████▋    | 246/434 [00:11<00:11, 16.59it/s]Loading weights:  59%|█████▉    | 255/434 [00:11<00:07, 22.98it/s]Loading weights:  59%|█████▉    | 258/434 [00:11<00:09, 17.88it/s]Loading weights:  62%|██████▏   | 267/434 [00:11<00:07, 20.90it/s]Loading weights:  62%|██████▏   | 270/434 [00:12<00:09, 16.75it/s]Loading weights:  64%|██████▍   | 279/434 [00:12<00:06, 23.06it/s]Loading weights:  65%|██████▍   | 282/434 [00:12<00:08, 17.88it/s]Loading weights:  67%|██████▋   | 291/434 [00:13<00:06, 20.62it/s]Loading weights:  68%|██████▊   | 294/434 [00:13<00:08, 16.82it/s]Loading weights:  70%|██████▉   | 303/434 [00:13<00:05, 23.22it/s]Loading weights:  71%|███████   | 306/434 [00:14<00:07, 17.93it/s]Loading weights:  73%|███████▎  | 315/434 [00:14<00:05, 20.96it/s]Loading weights:  73%|███████▎  | 318/434 [00:14<00:06, 16.67it/s]Loading weights:  75%|███████▌  | 327/434 [00:15<00:04, 22.96it/s]Loading weights:  76%|███████▌  | 330/434 [00:15<00:05, 17.72it/s]Loading weights:  78%|███████▊  | 339/434 [00:15<00:04, 20.63it/s]Loading weights:  79%|███████▉  | 342/434 [00:16<00:05, 16.54it/s]Loading weights:  81%|████████  | 351/434 [00:16<00:03, 22.92it/s]Loading weights:  82%|████████▏ | 354/434 [00:16<00:04, 17.91it/s]Loading weights:  84%|████████▎ | 363/434 [00:16<00:03, 20.92it/s]Loading weights:  84%|████████▍ | 366/434 [00:17<00:04, 16.70it/s]Loading weights:  86%|████████▋ | 375/434 [00:17<00:02, 23.07it/s]Loading weights:  87%|████████▋ | 378/434 [00:17<00:03, 17.95it/s]Loading weights:  89%|████████▉ | 387/434 [00:18<00:02, 20.69it/s]Loading weights:  90%|████████▉ | 390/434 [00:18<00:02, 16.37it/s]Loading weights:  92%|█████████▏| 399/434 [00:18<00:01, 23.02it/s]Loading weights:  93%|█████████▎| 402/434 [00:19<00:01, 17.71it/s]Loading weights:  95%|█████████▍| 411/434 [00:19<00:01, 20.61it/s]Loading weights:  95%|█████████▌| 414/434 [00:19<00:01, 16.47it/s]Loading weights:  97%|█████████▋| 423/434 [00:19<00:00, 22.83it/s]Loading weights:  98%|█████████▊| 426/434 [00:20<00:00, 17.99it/s]Loading weights: 100%|██████████| 434/434 [00:20<00:00, 21.37it/s]
+0 test:943 single 411 par [398, 380, 402] rev 316 102s
+1 test:2688 single 596 par [694, 518, 602] rev 697 163s
+2 test:3504 single 966 par [1024, 1000, 1024] rev 1080 267s
+3 test:4335 single 287 par [288, 324, 305] rev 170 72s
+4 test:2460 single 3072 par [935, 1024, 998] rev 762 369s
+5 test:1324 single 438 par [673, 799, 691] rev 452 160s
+6 test:2340 single 967 par [806, 874, 982] rev 845 232s
+7 test:1577 single 207 par [219, 272, 210] rev 237 60s
+8 test:639 single 699 par [325, 354, 305] rev 271 101s
+9 test:2892 single 1813 par [1024, 979, 763] rev 1261 304s
+10 test:4702 single 318 par [1024, 538, 512] rev 374 145s
+11 test:1709 single 862 par [935, 832, 812] rev 961 236s
+12 test:4041 single 240 par [256, 242, 244] rev 247 68s
+13 test:2119 single 952 par [694, 1024, 853] rev 453 216s
+14 test:2087 single 497 par [677, 546, 439] rev 576 148s
+15 test:4549 single 840 par [1024, 1024, 1024] rev 971 263s
+16 test:2732 single 1022 par [1024, 593, 899] rev 964 241s
+17 test:1433 single 297 par [333, 336, 371] rev 318 88s
+18 test:3285 single 3072 par [1024, 1024, 1024] rev 1203 399s
+19 test:29 single 532 par [377, 339, 290] rev 338 101s
+20 test:2948 single 1488 par [1024, 1024, 1024] rev 543 275s
+21 test:1997 single 423 par [582, 529, 443] rev 550 135s
+22 test:414 single 615 par [726, 542, 705] rev 594 169s
+23 test:1808 single 614 par [611, 526, 600] rev 567 154s
+24 test:4962 single 240 par [376, 429, 408] rev 219 88s
+25 test:274 single 429 par [594, 596, 567] rev 439 138s
+26 test:916 single 398 par [381, 372, 362] rev 397 100s
+27 test:534 single 443 par [475, 443, 286] rev 420 108s
+28 test:2177 single 1804 par [1024, 1024, 1024] rev 1161 321s
+29 test:1043 single 550 par [498, 749, 652] rev 527 157s
+30 test:373 single 226 par [311, 235, 319] rev 219 69s
+31 test:1379 single 586 par [440, 565, 482] rev 432 131s
+32 test:196 single 788 par [1024, 647, 758] rev 1233 234s
+33 test:2134 single 611 par [983, 432, 698] rev 1169 206s
+34 test:771 single 867 par [467, 507, 871] rev 452 167s
+35 test:3572 single 1085 par [784, 993, 974] rev 763 245s
+36 test:2358 single 1402 par [1024, 1024, 1024] rev 1158 299s
+37 test:2019 single 326 par [309, 301, 303] rev 312 81s
+38 test:4144 single 389 par [349, 297, 391] rev 367 95s
+39 test:3314 single 653 par [391, 683, 462] rev 359 134s
+40 test:3239 single 288 par [308, 318, 302] rev 282 78s
+41 test:4678 single 810 par [976, 865, 986] rev 932 240s
+42 test:1122 single 603 par [868, 522, 808] rev 458 173s
+43 test:4168 single 312 par [296, 328, 301] rev 295 81s
+44 test:1300 single 200 par [266, 197, 181] rev 239 58s
+45 test:4516 single 1548 par [964, 1024, 1024] rev 821 288s
+46 test:1903 single 583 par [561, 590, 506] rev 471 145s
+47 test:1916 single 485 par [385, 312, 546] rev 375 113s
+48 test:3409 single 883 par [764, 913, 771] rev 679 212s
+49 test:3617 single 281 par [228, 252, 319] rev 175 66s
+DONE

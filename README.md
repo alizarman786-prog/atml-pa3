@@ -178,8 +178,7 @@ live comparison with `Qwen/Qwen2.5-3B-Instruct` (revision `aa8e72537993ba99e69df
 python task3/t3_splits.py --data pa3data --out t3
 wget https://raw.githubusercontent.com/lupantech/MathVista/main/data/testmini.json -O t3/testmini.json
 python task3/t3_offline.py --data pa3data --splits t3/splits.json --meta t3/testmini.json --out t3
-CUDA_VISIBLE_DEVICES=0 python task3/t3_live.py --questions t3/live50.json --out live --shard 0 --nshards 2
-CUDA_VISIBLE_DEVICES=1 python task3/t3_live.py --questions t3/live50.json --out live --shard 1 --nshards 2
+python task3/t3_live.py --questions t3/live50.json --out live   # all 50 questions on one GPU
 python task3/t3_live_eval.py --live live --out live
 python task3/make_report.py --offline t3 --live live --out results/task3/report
 ```
@@ -204,7 +203,8 @@ python task3/make_report.py --offline t3 --live live --out results/task3/report
 * **Live comparison.** Same 3,072-token output allowance per question: one 3,072-token response; three 1,024-token
   samples with self-consistency; one shared 1,024-token response plus one 2,048-token critique-and-revision turn.
   FP16, batch size 1, temperature 0.7, top-p 0.8, top-k 20; seeds `6304·1000 + 10·index + k`. Last `\boxed{}` with
-  balanced braces is extracted; full prompts and responses are saved.
+  balanced braces is extracted; full prompts and responses are saved. The reported live run used one
+  Tesla T4 in Google Colab (transformers 5.20.2, torch 2.11.0), because the weekly Kaggle GPU quota was used up.
 
 ## External code and attribution
 
