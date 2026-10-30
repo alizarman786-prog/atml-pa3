@@ -1,0 +1,176 @@
+{
+ "math": {
+  "tau": 0.625,
+  "by_stop": [
+   {
+    "stop": 4,
+    "n": 5302,
+    "accuracy": 0.907582044511505,
+    "fixed32_accuracy": 0.9096567333081856,
+    "mean_lead_share": 0.9418144096567334,
+    "mean_frac_correct_pool": 0.8458364768012071
+   },
+   {
+    "stop": 8,
+    "n": 469,
+    "accuracy": 0.697228144989339,
+    "fixed32_accuracy": 0.6993603411513859,
+    "mean_lead_share": 0.670042643923241,
+    "mean_frac_correct_pool": 0.5241204690831557
+   },
+   {
+    "stop": 16,
+    "n": 106,
+    "accuracy": 0.7358490566037735,
+    "fixed32_accuracy": 0.7358490566037735,
+    "mean_lead_share": 0.6580188679245284,
+    "mean_frac_correct_pool": 0.5185731132075472
+   },
+   {
+    "stop": 32,
+    "n": 2123,
+    "accuracy": 0.3174752708431465,
+    "fixed32_accuracy": 0.3174752708431465,
+    "mean_lead_share": 0.31470796043334903,
+    "mean_frac_correct_pool": 0.17467910975035328
+   }
+  ],
+  "by_fraction_correct": [
+   {
+    "fc_bin": "0",
+    "n": 690,
+    "mean_stop": 23.402898550724636,
+    "early_stop_rate": 0.32028985507246377,
+    "accuracy": 0.0,
+    "fixed32_accuracy": 0.0
+   },
+   {
+    "fc_bin": "(0,.25]",
+    "n": 1420,
+    "mean_stop": 25.56056338028169,
+    "early_stop_rate": 0.24295774647887325,
+    "accuracy": 0.14084507042253522,
+    "fixed32_accuracy": 0.13309859154929576
+   },
+   {
+    "fc_bin": "(.25,.5]",
+    "n": 780,
+    "mean_stop": 21.784615384615385,
+    "early_stop_rate": 0.38461538461538464,
+    "accuracy": 0.767948717948718,
+    "fixed32_accuracy": 0.7743589743589744
+   },
+   {
+    "fc_bin": "(.5,.75]",
+    "n": 740,
+    "mean_stop": 9.481081081081081,
+    "early_stop_rate": 0.8662162162162163,
+    "accuracy": 0.9783783783783784,
+    "fixed32_accuracy": 1.0
+   },
+   {
+    "fc_bin": "(.75,1)",
+    "n": 1750,
+    "mean_stop": 4.377142857142857,
+    "early_stop_rate": 1.0,
+    "accuracy": 0.9988571428571429,
+    "fixed32_accuracy": 1.0
+   },
+   {
+    "fc_bin": "1",
+    "n": 2620,
+    "mean_stop": 4.0,
+    "early_stop_rate": 1.0,
+    "accuracy": 1.0,
+    "fixed32_accuracy": 1.0
+   }
+  ]
+ },
+ "mathvista": {
+  "tau": 0.5,
+  "by_stop": [
+   {
+    "stop": 4,
+    "n": 6098,
+    "accuracy": 0.7179403082978025,
+    "fixed32_accuracy": 0.7276156116759593,
+    "mean_lead_share": 0.8096507051492292,
+    "mean_frac_correct_pool": 0.6306012217120367
+   },
+   {
+    "stop": 8,
+    "n": 634,
+    "accuracy": 0.6151419558359621,
+    "fixed32_accuracy": 0.6151419558359621,
+    "mean_lead_share": 0.6013406940063092,
+    "mean_frac_correct_pool": 0.46569400630914826
+   },
+   {
+    "stop": 16,
+    "n": 170,
+    "accuracy": 0.5941176470588235,
+    "fixed32_accuracy": 0.5941176470588235,
+    "mean_lead_share": 0.5658088235294118,
+    "mean_frac_correct_pool": 0.43676470588235294
+   },
+   {
+    "stop": 32,
+    "n": 1098,
+    "accuracy": 0.1703096539162113,
+    "fixed32_accuracy": 0.1703096539162113,
+    "mean_lead_share": 0.42190346083788705,
+    "mean_frac_correct_pool": 0.16202755009107467
+   }
+  ],
+  "by_fraction_correct": [
+   {
+    "fc_bin": "0",
+    "n": 730,
+    "mean_stop": 15.693150684931506,
+    "early_stop_rate": 0.5958904109589042,
+    "accuracy": 0.0,
+    "fixed32_accuracy": 0.0
+   },
+   {
+    "fc_bin": "(0,.25]",
+    "n": 1540,
+    "mean_stop": 14.07012987012987,
+    "early_stop_rate": 0.6577922077922078,
+    "accuracy": 0.08441558441558442,
+    "fixed32_accuracy": 0.024675324675324677
+   },
+   {
+    "fc_bin": "(.25,.5]",
+    "n": 1370,
+    "mean_stop": 10.178102189781022,
+    "early_stop_rate": 0.8167883211678832,
+    "accuracy": 0.5116788321167883,
+    "fixed32_accuracy": 0.5233576642335767
+   },
+   {
+    "fc_bin": "(.5,.75]",
+    "n": 1350,
+    "mean_stop": 5.795555555555556,
+    "early_stop_rate": 0.9814814814814815,
+    "accuracy": 0.9007407407407407,
+    "fixed32_accuracy": 1.0
+   },
+   {
+    "fc_bin": "(.75,1)",
+    "n": 2170,
+    "mean_stop": 4.178801843317973,
+    "early_stop_rate": 1.0,
+    "accuracy": 0.9995391705069124,
+    "fixed32_accuracy": 1.0
+   },
+   {
+    "fc_bin": "1",
+    "n": 840,
+    "mean_stop": 4.0,
+    "early_stop_rate": 1.0,
+    "accuracy": 1.0,
+    "fixed32_accuracy": 1.0
+   }
+  ]
+ }
+}

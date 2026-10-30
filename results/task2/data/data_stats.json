@@ -1,0 +1,44 @@
+{
+ "caption_train": 18000,
+ "caption_dev": 96,
+ "grounding_train_pool": 6000,
+ "grounding_dev": 24,
+ "grounding_test": 64,
+ "vqa_train": 1536,
+ "vqa_dev": 32,
+ "vqa_test": 96,
+ "n_train_images": 8733,
+ "n_val_images": 528,
+ "vqa_eligible_val_pairs": 33925,
+ "vqa_types": {
+  "vqa_train": {
+   "yes/no": 640,
+   "number": 256,
+   "other": 640
+  },
+  "vqa_dev": {
+   "yes/no": 12,
+   "number": 8,
+   "other": 12
+  },
+  "vqa_test": {
+   "yes/no": 36,
+   "number": 24,
+   "other": 36
+  }
+ },
+ "grounding_kinds": {
+  "grounding_train_pool": {
+   "presence": 3000,
+   "counting": 3000
+  },
+  "grounding_dev": {
+   "presence": 12,
+   "counting": 12
+  },
+  "grounding_test": {
+   "presence": 32,
+   "counting": 32
+  }
+ }
+}

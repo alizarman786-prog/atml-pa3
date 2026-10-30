@@ -2,7 +2,7 @@
 Usage: python make_report.py --run 196=DIR [--run 49=DIR] --out DIR
 Writes fig_train_loss.png, fig_dev_curves.png, tables.md, qualitative.md.
 """
-import json, argparse, os, random
+import json, argparse, os, random, collections
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -146,5 +146,26 @@ for title, f in cats.items():
         for r in rr.sample(pool, min(4, len(pool))):
             q.append(f"| {r['image_id']} | {r['question']} | {r['answer']} | {r['partner_answer']} | " +
                      ' | '.join(repr(r[c]['pred']) for c in CONDS) + ' |')
+# ---- aligned complementary pairs (both members side by side); rule: first 3 pairs by pair index per category
+q.append('\n# Aligned complementary pairs\n')
+q.append('Rule: for each suite, the first 3 pairs (pair index order) in each category, decided by exact canonical '
+         'match under the original image. Each row is one member; both members share the question.\n')
+for suite in ['grounding_test', 'vqa_test']:
+    pr = collections.defaultdict(list)
+    for r in rows:
+        if r['suite'] == suite:
+            pr[r['pair_index']].append(r)
+    cats = {'both correct': lambda a, b: a['correct']['match'] and b['correct']['match'],
+            'one correct': lambda a, b: a['correct']['match'] != b['correct']['match'],
+            'both wrong': lambda a, b: not a['correct']['match'] and not b['correct']['match']}
+    for cname, f in cats.items():
+        sel = [k for k in sorted(pr) if len(pr[k]) == 2 and f(*sorted(pr[k], key=lambda r: r['member']))][:3]
+        q.append(f'\n## {suite} - {cname} ({sum(1 for k in pr if len(pr[k]) == 2 and f(*pr[k]))} of {len(pr)} pairs)\n')
+        q.append('| pair | question | image id | reference | pred. (own image) | pred. (partner image) | pred. (mismatched) | pred. (no image) |')
+        q.append('|---|---|---|---|---|---|---|---|')
+        for k in sel:
+            for r in sorted(pr[k], key=lambda r: r['member']):
+                q.append(f"| {r['pair_id']} | {r['question']} | {r['image_id']} | {r['answer']} | " +
+                         ' | '.join(repr(r[c]['pred'])[:60] for c in CONDS) + ' |')
 open(f'{args.out}/qualitative.md', 'w').write('\n'.join(q) + '\n')
 print('wrote', os.listdir(args.out))

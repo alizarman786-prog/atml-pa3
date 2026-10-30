@@ -37,6 +37,7 @@ task3/
   t3_live.py                # live single / parallel / refinement generation with Qwen2.5-3B-Instruct
   t3_live_eval.py           # grading of the live comparison
   make_report.py            # figures + markdown tables
+  qualitative.py            # Step 6 qualitative cases (stated selection rules) + stopping-vs-agreement analysis
 results/task1/
   data/                     # train_info.json, train_selection.json (example IDs), probe_ids.json
   training/                 # <method>_summary.json, <method>_train_log.csv (per-update loss, lr, grad-norm, Omega, ...)
@@ -46,13 +47,14 @@ results/task1/
   tables/                   # benchmarks.md/csv, resources.md, diagnostics.md, qualitative_auto_checks.md
   figures/                  # fig1_training_loss, fig2_benchmark_deltas, fig3_diagnostics (.png/.pdf)
 results/task2/
-  data/                     # split files (image/question IDs, answers), data_stats.json, cache_info.json
+  data/                     # selected caption/grounding/VQA examples with image, question and pair IDs (all splits),
+                            # image_ids.json, data_stats.json, cache_info.json (feature-caching time / memory)
   run_196tok/, run_49tok/   # train_log.jsonl, dev_eval.jsonl, summary.json, final_eval.json, final_per_example.jsonl
   report/                   # tables.md, qualitative.md, fig_train_loss.png, fig_dev_curves.png
 results/task3/
   offline/                  # splits.json, live50.json, <ds>_results.json, <ds>_per_question.csv.gz, <ds>_labels.json
   live/                     # live_shard*.jsonl (full prompts/responses), live_results.json
-  report/                   # tables.md, scaling / cost / adaptive / trajectory figures
+  report/                   # tables.md, qualitative.md, stopping_analysis.json, scaling / cost / adaptive / trajectory figures
 ```
 
 Model weights, recovery checkpoints, raw datasets and full lm-eval sample dumps are **not** committed (size); they
@@ -181,13 +183,15 @@ python task3/t3_offline.py --data pa3data --splits t3/splits.json --meta t3/test
 python task3/t3_live.py --questions t3/live50.json --out live   # all 50 questions on one GPU
 python task3/t3_live_eval.py --live live --out live
 python task3/make_report.py --offline t3 --live live --out results/task3/report
+python task3/qualitative.py --offline t3 --live live --out results/task3/report
 ```
 
 * **Splits.** Per dataset, sorted question IDs are permuted with `numpy.random.default_rng(6304)`: first 200 =
   development (threshold selection only), remaining 800 = held-out evaluation. The live subset is the first 50 MATH
   evaluation questions of that permutation.
 * **Answer equivalence.** MATH: `math-verify` (gold first), with cheap canonical string equality first; answers are
-  grouped without the gold answer. Comparisons that hit the 2 s math-verify timeout are treated as not equivalent.
+  grouped without the gold answer. Comparisons that hit the 2 s math-verify timeout are treated as not equivalent. Scorer: `math-verify` 0.9.0
+  (`antlr4-python3-runtime` 4.13.2), fixed before the held-out evaluation.
   MathVista: normalization from the released `testmini.json` metadata (choice letters / choice text / numeric
   matching for multiple choice; integer rounding; float precision). Missing answers form one `NO_ANSWER` group that
   is never correct.
